@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bora - Início</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="index.html">Bora</a>
+      <nav>
+        <a href="index.html">Início</a>
+        <a href="favoritos.html">Favoritos</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h1>O que você quer fazer hoje?</h1>
+        <p>Escolha os filtros para ver algumas sugestões.</p>
+      </section>
+
+      <form class="filters">
+        <label>
+          Categoria
+          <select>
+            <option>Todas</option>
+            <option>Natureza</option>
+            <option>Café</option>
+            <option>Cultura</option>
+          </select>
+        </label>
+        <label>
+          Distância
+          <select>
+            <option>Até 5 km</option>
+            <option>Até 10 km</option>
+          </select>
+        </label>
+        <label>
+          Preço
+          <select>
+            <option>Qualquer valor</option>
+            <option>Grátis</option>
+            <option>Até R$ 50</option>
+          </select>
+        </label>
+        <button type="button">Buscar</button>
+      </form>
+
+      <section>
+        <h2>Sugestões</h2>
+        <div>
+          <article class="card">
+            <h3>Parque Ecológico</h3>
+            <p>Natureza</p>
+            <p>2 km · grátis</p>
+            <a href="detalhes.html">Ver detalhes</a>
+          </article>
+          <article class="card">
+            <h3>Café Central</h3>
+            <p>Café</p>
+            <p>1,4 km · cerca de R$ 25</p>
+            <a href="detalhes.html">Ver detalhes</a>
+          </article>
+          <article class="card">
+            <h3>Museu Municipal</h3>
+            <p>Cultura</p>
+            <p>3 km · grátis</p>
+            <a href="detalhes.html">Ver detalhes</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>Bora - projeto de Web 2</footer>
+  </body>
+</html>
