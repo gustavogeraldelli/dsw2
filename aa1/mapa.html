@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa — Bora</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/map.js" defer></script>
+  </head>
+  <body class="flex min-h-screen flex-col bg-orange-50 text-gray-800">
+    <header class="border-b border-gray-200 bg-white">
+      <div class="mx-auto max-w-6xl p-4 sm:flex sm:items-center sm:justify-between">
+        <a href="index.html" class="text-3xl font-bold text-bora">Bora</a>
+        <nav class="mt-4 flex flex-wrap gap-2 text-sm text-bora sm:mt-0">
+          <a href="index.html">Descobrir</a>
+          <a href="mapa.html" class="bg-bora-light font-bold">Mapa</a>
+          <a href="favoritos.html">Favoritos</a>
+          <a href="preferencias.html">Preferências</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-6xl flex-1 p-4">
+      <section class="my-6 rounded-lg bg-bora-light p-6">
+        <h1 class="text-3xl font-bold text-bora">Mapa</h1>
+        <p class="mt-3">Explore o mapa e conheça outras regiões do mundo.</p>
+      </section>
+      <div id="map" class="rounded-lg border border-gray-200"></div>
+      <p id="map-status" class="mt-2 text-sm"></p>
+    </main>
+
+    <footer class="mt-12 bg-bora p-6 text-center text-sm text-white">
+      Bora · Projeto da disciplina Web 2
+    </footer>
+  </body>
+</html>

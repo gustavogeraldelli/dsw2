@@ -1,79 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bora - Início</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descobrir — Bora</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/places.js" defer></script>
+    <script src="js/app.js" defer></script>
   </head>
-  <body>
-    <header>
-      <a href="index.html">Bora</a>
-      <nav>
-        <a href="index.html">Início</a>
-        <a href="favoritos.html">Favoritos</a>
-      </nav>
+  <body class="flex min-h-screen flex-col bg-orange-50 text-gray-800">
+    <header class="border-b border-gray-200 bg-white">
+      <div class="mx-auto max-w-6xl p-4 sm:flex sm:items-center sm:justify-between">
+        <a href="index.html" class="text-3xl font-bold text-bora">Bora</a>
+        <nav class="mt-4 flex flex-wrap gap-2 text-sm text-bora sm:mt-0">
+          <a href="index.html" class="bg-bora-light font-bold">Descobrir</a>
+          <a href="mapa.html">Mapa</a>
+          <a href="favoritos.html">Favoritos</a>
+          <a href="preferencias.html">Preferências</a>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <section>
-        <h1>O que você quer fazer hoje?</h1>
-        <p>Escolha os filtros para ver algumas sugestões.</p>
+    <main class="flex-1">
+      <section class="bg-bora-light py-12 sm:py-16">
+        <div class="mx-auto max-w-6xl px-4">
+          <h1 class="text-3xl font-bold text-bora sm:text-4xl">O que fazer hoje?</h1>
+          <p class="mt-3 text-gray-600">Escolha os filtros para ver algumas sugestões de passeio.</p>
+          <form id="filters" class="mt-6 grid gap-4 rounded-lg bg-white p-4 shadow-sm sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <label class="text-sm font-bold" for="category">Categoria</label>
+              <select id="category">
+                <option value="all">Todas</option>
+                <option>Ao ar livre</option>
+                <option>Comer</option>
+                <option>Cultura</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-bold" for="distance">Distância</label>
+              <select id="distance">
+                <option value="5">Até 5 km</option>
+                <option value="10">Até 10 km</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-bold" for="price">Preço</label>
+              <select id="price">
+                <option value="999">Qualquer valor</option>
+                <option value="0">Grátis</option>
+                <option value="50">Até R$ 50</option>
+              </select>
+            </div>
+            <button type="submit" class="self-end rounded-lg bg-bora p-2 font-bold text-white hover-bora">Ver sugestões</button>
+          </form>
+        </div>
       </section>
 
-      <form class="filters">
-        <label>
-          Categoria
-          <select>
-            <option>Todas</option>
-            <option>Natureza</option>
-            <option>Café</option>
-            <option>Cultura</option>
-          </select>
-        </label>
-        <label>
-          Distância
-          <select>
-            <option>Até 5 km</option>
-            <option>Até 10 km</option>
-          </select>
-        </label>
-        <label>
-          Preço
-          <select>
-            <option>Qualquer valor</option>
-            <option>Grátis</option>
-            <option>Até R$ 50</option>
-          </select>
-        </label>
-        <button type="button">Buscar</button>
-      </form>
-
-      <section>
-        <h2>Sugestões</h2>
-        <div>
-          <article class="card">
-            <h3>Parque Ecológico</h3>
-            <p>Natureza</p>
-            <p>2 km · grátis</p>
-            <a href="detalhes.html">Ver detalhes</a>
-          </article>
-          <article class="card">
-            <h3>Café Central</h3>
-            <p>Café</p>
-            <p>1,4 km · cerca de R$ 25</p>
-            <a href="detalhes.html">Ver detalhes</a>
-          </article>
-          <article class="card">
-            <h3>Museu Municipal</h3>
-            <p>Cultura</p>
-            <p>3 km · grátis</p>
-            <a href="detalhes.html">Ver detalhes</a>
-          </article>
+      <section class="bg-orange-50 py-10">
+        <div class="mx-auto max-w-6xl px-4">
+          <h2 class="text-2xl font-bold">Sugestões</h2>
+          <p id="result-count" class="mt-2 mb-4 text-sm"></p>
+          <div id="places-list" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+          <p id="no-results" hidden>Nenhum lugar corresponde a esses filtros. Tente outra combinação.</p>
         </div>
       </section>
     </main>
 
-    <footer>Bora - projeto de Web 2</footer>
+    <footer class="bg-bora p-6 text-center text-sm text-white">
+      Bora · Projeto da disciplina Web 2
+    </footer>
   </body>
 </html>

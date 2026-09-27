@@ -1,35 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Parque Ecológico - Bora</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes — Bora</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/places.js" defer></script>
+    <script src="js/app.js" defer></script>
   </head>
-  <body>
-    <header>
-      <a href="index.html">Bora</a>
-      <nav>
-        <a href="index.html">Início</a><a href="favoritos.html">Favoritos</a>
-      </nav>
-    </header>
-    <main>
-      <a href="index.html">← Voltar</a>
-      <div>
-        <div class="imagem">imagem</div>
-        <div>
-          <p>Natureza</p>
-          <h1>Parque Ecológico</h1>
-          <p>
-            Área verde para caminhar, descansar e passar algumas horas ao ar
-            livre.
-          </p>
-          <p><strong>Endereço:</strong> Rua das Árvores, 120 - São Carlos</p>
-          <p><strong>Distância:</strong> 2 km</p>
-          <p><strong>Preço:</strong> entrada gratuita</p>
-        </div>
+  <body class="flex min-h-screen flex-col bg-orange-50 text-gray-800">
+    <header class="border-b border-gray-200 bg-white">
+      <div class="mx-auto max-w-6xl p-4 sm:flex sm:items-center sm:justify-between">
+        <a href="index.html" class="text-3xl font-bold text-bora">Bora</a>
+        <nav class="mt-4 flex flex-wrap gap-2 text-sm text-bora sm:mt-0">
+          <a href="index.html">Descobrir</a>
+          <a href="mapa.html">Mapa</a>
+          <a href="favoritos.html">Favoritos</a>
+          <a href="preferencias.html">Preferências</a>
+        </nav>
       </div>
+    </header>
+
+    <main id="place-detail" class="mx-auto w-full max-w-6xl flex-1 p-4">
+      <a href="index.html" class="my-4 inline-block text-bora underline">Voltar para descobrir</a>
+      <section class="grid gap-6 md:grid-cols-2">
+        <img id="place-image" class="w-full rounded-lg" src="assets/parque.svg" alt="Ilustração de um parque">
+        <div class="rounded-lg border border-gray-200 bg-white p-6">
+          <p id="place-category" class="text-bora"></p>
+          <h1 id="place-name" class="my-2 text-3xl font-bold"></h1>
+          <div id="place-rating"></div>
+          <p id="place-description" class="my-4"></p>
+          <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
+            <li><strong>Distância:</strong> <span id="place-distance"></span></li>
+            <li><strong>Preço:</strong> <span id="place-price"></span></li>
+            <li><strong>Tempo sugerido:</strong> <span id="place-duration"></span></li>
+          </ul>
+          <button id="detail-favorite" type="button" class="rounded-lg border border-bora px-4 py-2 font-bold">Favoritar</button>
+          <h2 class="mt-6 text-xl font-bold">Informações</h2>
+          <p class="mt-2"><strong>Endereço:</strong> <span id="place-address"></span></p>
+          <p class="mt-2"><strong>Horário:</strong> <span id="place-hours"></span></p>
+        </div>
+      </section>
+
+      <section class="mt-8 rounded-lg bg-bora-light p-6">
+        <h2 class="text-2xl font-bold">Avaliações</h2>
+        <div id="reviews-list" class="mt-4 grid gap-4 md:grid-cols-2"></div>
+      </section>
     </main>
-    <footer>Bora - projeto de Web 2</footer>
+
+    <footer class="mt-12 bg-bora p-6 text-center text-sm text-white">
+      Bora · Projeto da disciplina Web 2
+    </footer>
   </body>
 </html>
