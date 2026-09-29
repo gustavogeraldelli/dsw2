@@ -14,7 +14,7 @@ O Bora é uma aplicação para ajudar a encontrar lugares e atividades de acordo
 - `mapa.html` - mapa-múndi interativo usando Leaflet e OpenStreetMap.
 - `preferencias.html` - formulário visual com campos de categorias e distância.
 
-O projeto utiliza HTML, CSS, JavaScript e Tailwind CSS. As páginas compartilham a identidade visual e possuem layout responsivo para celular, tablet e desktop.
+O projeto utiliza HTML, CSS, JavaScript e Tailwind CSS. As páginas compartilham a identidade visual e possuem layout responsivo para celular, tablet e desktop. Em telas pequenas, os links de navegação ficam em um menu controlado por checkbox e CSS.
 
 Os cards principais e as informações dos lugares estão escritos no HTML. O JavaScript controla os filtros, a seleção dos detalhes e os favoritos, que permanecem salvos após recarregar a página.
 
