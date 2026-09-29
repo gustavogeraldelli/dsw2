@@ -38,7 +38,11 @@ function toggleFavorite(id) {
   catch {
   }
 
-  renderPage();
+  if (document.getElementById('favorites-list')) {
+    renderFavorites();
+  }
+
+  updateFavoriteButtons();
 }
 
 function updateFavoriteButtons() {
@@ -53,29 +57,19 @@ function updateFavoriteButtons() {
   }
 }
 
-function averageRating(place) {
-  let total = 0;
-
-  for (const review of place.reviews) {
-    total += review.rating;
-  }
-
-  return total / place.reviews.length;
-}
-
 function stars(rating) {
   const rounded = Math.round(rating);
   return '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
 }
 
 function renderRating(place) {
-  const average = averageRating(place);
+  const average = place.rating;
   const score = average.toFixed(1).replace('.', ',');
 
   return `
     <p class="text-sm">
       <span class="text-orange-700">${stars(average)}</span>
-      ${score}/5 · ${place.reviews.length} avaliações
+      ${score}/5 · ${place.reviewCount} avaliações
     </p>
   `;
 }
@@ -99,73 +93,44 @@ function renderCard(place) {
   `;
 }
 
-function renderHome() {
+function filterPlaces() {
   const category = document.getElementById('category').value;
   const distance = Number(document.getElementById('distance').value);
   const price = Number(document.getElementById('price').value);
-  const visible = [];
+  const cards = document.querySelectorAll('#places-list article');
+  let count = 0;
 
-  for (const place of places) {
-    if ((category === 'all' || place.category === category) &&
-        place.distanceKm <= distance && place.priceValue <= price) {
-      visible.push(place);
+  for (const card of cards) {
+    const matches = (category === 'all' || card.dataset.category === category) &&
+      Number(card.dataset.distance) <= distance && Number(card.dataset.price) <= price;
+
+    card.hidden = !matches;
+    if (matches) {
+      count += 1;
     }
   }
 
-  document.getElementById('places-list').innerHTML = visible.map(renderCard).join('');
-  document.getElementById('no-results').hidden = visible.length > 0;
+  document.getElementById('no-results').hidden = count > 0;
   document.getElementById('result-count').textContent =
-    `${visible.length} ${visible.length === 1 ? 'lugar' : 'lugares'}`;
+    `${count} ${count === 1 ? 'lugar' : 'lugares'}`;
 }
 
-function renderReview(review) {
-  let photo = '';
+function showDetails() {
+  const details = document.querySelectorAll('[data-place]');
+  const id = new URLSearchParams(location.search).get('id') || details[0].dataset.place;
+  let selected = null;
 
-  if (review.photo) {
-    photo = `
-      <figure class="mt-4">
-        <img src="${review.photo}" alt="${review.photoAlt}" class="h-24 w-40 rounded object-cover">
-      </figure>
-    `;
+  for (const detail of details) {
+    detail.hidden = detail.dataset.place !== id;
+    if (!detail.hidden) {
+      selected = detail;
+    }
   }
 
-  return `
-    <article class="rounded-lg border border-gray-200 bg-white p-5">
-      <h3 class="font-bold">${review.name}</h3>
-      <p class="my-2"><span class="text-orange-700">${stars(review.rating)}</span> ${review.rating}/5</p>
-      <p>${review.text}</p>
-      ${photo}
-    </article>
-  `;
-}
-
-function renderDetails() {
-  const id = new URLSearchParams(location.search).get('id') || places[0].id;
-  const place = places.find(place => place.id === id);
-
-  if (!place) {
-    document.title = 'Lugar não encontrado — Bora';
-    document.getElementById('place-detail').innerHTML = `
-      <h1 class="my-4 text-3xl font-bold">Lugar não encontrado</h1>
-      <a href="index.html" class="text-bora underline">Voltar para a Home</a>
-    `;
-    return;
-  }
-
-  document.title = `${place.name} — Bora`;
-  document.getElementById('place-image').src = place.image;
-  document.getElementById('place-image').alt = place.imageAlt;
-  document.getElementById('place-name').textContent = place.name;
-  document.getElementById('place-category').textContent = place.category;
-  document.getElementById('place-description').textContent = place.description;
-  document.getElementById('place-distance').textContent = place.distance;
-  document.getElementById('place-price').textContent = place.price;
-  document.getElementById('place-duration').textContent = place.duration;
-  document.getElementById('place-address').textContent = place.address;
-  document.getElementById('place-hours').textContent = place.hours;
-  document.getElementById('place-rating').innerHTML = renderRating(place);
-  document.getElementById('detail-favorite').dataset.favorite = place.id;
-  document.getElementById('reviews-list').innerHTML = place.reviews.map(renderReview).join('');
+  document.getElementById('place-not-found').hidden = selected !== null;
+  document.title = selected
+    ? `${selected.querySelector('h1').textContent} — Bora`
+    : 'Lugar não encontrado — Bora';
 }
 
 function renderFavorites() {
@@ -181,22 +146,6 @@ function renderFavorites() {
     `${selected.length} ${selected.length === 1 ? 'lugar salvo' : 'lugares salvos'}`;
 }
 
-function renderPage() {
-  if (document.getElementById('places-list')) {
-    renderHome();
-  }
-
-  if (document.getElementById('place-detail')) {
-    renderDetails();
-  }
-
-  if (document.getElementById('favorites-list')) {
-    renderFavorites();
-  }
-
-  updateFavoriteButtons();
-}
-
 document.addEventListener('click', event => {
   const button = event.target.closest('[data-favorite]');
 
@@ -210,10 +159,26 @@ const filters = document.getElementById('filters');
 if (filters) {
   filters.addEventListener('submit', event => {
     event.preventDefault();
-    renderHome();
-    updateFavoriteButtons();
+    filterPlaces();
   });
+
+  filterPlaces();
 }
 
-window.addEventListener('storage', renderPage);
-renderPage();
+if (document.getElementById('place-detail')) {
+  showDetails();
+}
+
+if (document.getElementById('favorites-list')) {
+  renderFavorites();
+}
+
+window.addEventListener('storage', () => {
+  if (document.getElementById('favorites-list')) {
+    renderFavorites();
+  }
+
+  updateFavoriteButtons();
+});
+
+updateFavoriteButtons();

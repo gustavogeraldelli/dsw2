@@ -24,28 +24,142 @@
 
     <main id="place-detail" class="mx-auto w-full max-w-6xl flex-1 p-4">
       <a href="index.html" class="my-4 inline-block text-bora underline">Voltar para descobrir</a>
-      <section class="grid gap-6 md:grid-cols-2">
-        <img id="place-image" class="w-full rounded-lg" src="assets/parque.svg" alt="Ilustração de um parque">
-        <div class="rounded-lg border border-gray-200 bg-white p-6">
-          <p id="place-category" class="text-bora"></p>
-          <h1 id="place-name" class="my-2 text-3xl font-bold"></h1>
-          <div id="place-rating"></div>
-          <p id="place-description" class="my-4"></p>
-          <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
-            <li><strong>Distância:</strong> <span id="place-distance"></span></li>
-            <li><strong>Preço:</strong> <span id="place-price"></span></li>
-            <li><strong>Tempo sugerido:</strong> <span id="place-duration"></span></li>
-          </ul>
-          <button id="detail-favorite" type="button" class="rounded-lg border border-bora px-4 py-2 font-bold">Favoritar</button>
-          <h2 class="mt-6 text-xl font-bold">Informações</h2>
-          <p class="mt-2"><strong>Endereço:</strong> <span id="place-address"></span></p>
-          <p class="mt-2"><strong>Horário:</strong> <span id="place-hours"></span></p>
-        </div>
-      </section>
+      <article data-place="parque-kartodromo">
+        <section class="grid gap-6 md:grid-cols-2">
+          <img class="w-full rounded-lg" src="assets/parque.svg" alt="Ilustração de um parque">
+          <div class="rounded-lg border border-gray-200 bg-white p-6">
+            <p class="text-bora">Ao ar livre</p>
+            <h1 class="my-2 text-3xl font-bold">Parque do Kartódromo</h1>
+            <p class="text-sm">
+              <span class="text-orange-700">★★★★☆</span>
+              4,3/5 · 3 avaliações
+            </p>
+            <p class="my-4">Um espaço aberto para caminhar, descansar e aproveitar o fim da tarde.</p>
+            <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
+              <li><strong>Distância:</strong> 1,8 km</li>
+              <li><strong>Preço:</strong> Grátis</li>
+              <li><strong>Tempo sugerido:</strong> 1–2 h</li>
+            </ul>
+            <button type="button" data-favorite="parque-kartodromo" class="rounded-lg border border-bora px-4 py-2 font-bold">Favoritar</button>
+            <h2 class="mt-6 text-xl font-bold">Informações</h2>
+            <p class="mt-2"><strong>Endereço:</strong> Av. Liberdade, s/n — São Carlos, SP</p>
+            <p class="mt-2"><strong>Horário:</strong> Todos os dias, das 6h às 21h.</p>
+          </div>
+        </section>
 
-      <section class="mt-8 rounded-lg bg-bora-light p-6">
-        <h2 class="text-2xl font-bold">Avaliações</h2>
-        <div id="reviews-list" class="mt-4 grid gap-4 md:grid-cols-2"></div>
+        <section class="mt-8 rounded-lg bg-bora-light p-6">
+          <h2 class="text-2xl font-bold">Avaliações</h2>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Marina S.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★★</span> 5/5</p>
+              <p>Gostei do espaço para caminhar. Fui no fim da tarde e havia bastante sombra.</p>
+              <figure class="mt-4">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Image_of_a_Park_with_Benches_and_Flowering_Trees.jpg?width=330" alt="Parque com bancos e árvores" class="h-24 w-40 rounded object-cover">
+              </figure>
+            </article>
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Rafael M.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★☆</span> 4/5</p>
+              <p>Boa opção para uma pausa ao ar livre. Algumas áreas poderiam ter mais bancos.</p>
+            </article>
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Lia P.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★☆</span> 4/5</p>
+              <p>Passeio simples e agradável para fazer sem gastar.</p>
+            </article>
+          </div>
+        </section>
+      </article>
+
+      <article data-place="cafe-centro" hidden>
+        <section class="grid gap-6 md:grid-cols-2">
+          <img class="w-full rounded-lg" src="assets/cafe.svg" alt="Ilustração de uma cafeteria">
+          <div class="rounded-lg border border-gray-200 bg-white p-6">
+            <p class="text-bora">Comer</p>
+            <h1 class="my-2 text-3xl font-bold">Café do Centro</h1>
+            <p class="text-sm">
+              <span class="text-orange-700">★★★★★</span>
+              4,5/5 · 2 avaliações
+            </p>
+            <p class="my-4">Uma opção para tomar café e fazer uma pausa durante um passeio pelo centro.</p>
+            <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
+              <li><strong>Distância:</strong> 850 m</li>
+              <li><strong>Preço:</strong> Cerca de R$ 25</li>
+              <li><strong>Tempo sugerido:</strong> 1 h</li>
+            </ul>
+            <button type="button" data-favorite="cafe-centro" class="rounded-lg border border-bora px-4 py-2 font-bold">Favoritar</button>
+            <h2 class="mt-6 text-xl font-bold">Informações</h2>
+            <p class="mt-2"><strong>Endereço:</strong> Região central — São Carlos, SP</p>
+            <p class="mt-2"><strong>Horário:</strong> Horário a confirmar.</p>
+          </div>
+        </section>
+
+        <section class="mt-8 rounded-lg bg-bora-light p-6">
+          <h2 class="text-2xl font-bold">Avaliações</h2>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Joana R.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★★</span> 5/5</p>
+              <p>Ambiente tranquilo para conversar e tomar um café.</p>
+            </article>
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Pedro A.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★☆</span> 4/5</p>
+              <p>Gostei dos lanches. O espaço é pequeno nos horários mais cheios.</p>
+            </article>
+          </div>
+        </section>
+      </article>
+
+      <article data-place="museu-ciencia" hidden>
+        <section class="grid gap-6 md:grid-cols-2">
+          <img class="w-full rounded-lg" src="assets/museu.svg" alt="Ilustração de um museu">
+          <div class="rounded-lg border border-gray-200 bg-white p-6">
+            <p class="text-bora">Cultura</p>
+            <h1 class="my-2 text-3xl font-bold">Museu da Ciência</h1>
+            <p class="text-sm">
+              <span class="text-orange-700">★★★★★</span>
+              4,7/5 · 3 avaliações
+            </p>
+            <p class="my-4">Uma visita para conhecer exposições e reservar um tempo para explorar temas de ciência.</p>
+            <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
+              <li><strong>Distância:</strong> 3,2 km</li>
+              <li><strong>Preço:</strong> Grátis</li>
+              <li><strong>Tempo sugerido:</strong> 2 h</li>
+            </ul>
+            <button type="button" data-favorite="museu-ciencia" class="rounded-lg border border-bora px-4 py-2 font-bold">Favoritar</button>
+            <h2 class="mt-6 text-xl font-bold">Informações</h2>
+            <p class="mt-2"><strong>Endereço:</strong> São Carlos, SP — endereço a confirmar</p>
+            <p class="mt-2"><strong>Horário:</strong> Horário a confirmar.</p>
+          </div>
+        </section>
+
+        <section class="mt-8 rounded-lg bg-bora-light p-6">
+          <h2 class="text-2xl font-bold">Avaliações</h2>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Camila T.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★★</span> 5/5</p>
+              <p>As exposições renderam uma visita interessante e várias conversas depois.</p>
+            </article>
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Bruno C.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★☆</span> 4/5</p>
+              <p>Vale reservar tempo para ver tudo com calma.</p>
+            </article>
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Nina L.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★★</span> 5/5</p>
+              <p>Gostei da variedade de assuntos apresentados.</p>
+            </article>
+          </div>
+        </section>
+      </article>
+
+      <section id="place-not-found" hidden>
+        <h1 class="my-4 text-3xl font-bold">Lugar não encontrado</h1>
+        <a href="index.html" class="text-bora underline">Voltar para a Home</a>
       </section>
     </main>
 
