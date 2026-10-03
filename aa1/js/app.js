@@ -85,12 +85,30 @@ function renderCard(place) {
         <h3 class="my-2 text-xl font-bold">${place.name}</h3>
         ${renderRating(place)}
         <p class="my-3 text-gray-600">${place.summary}</p>
-        <p class="mb-4 text-sm font-bold">${place.distance} · ${place.price} · ${place.duration}</p>
+        <p class="mb-4 text-sm font-bold">${formatDistance(distanceTo(place))} · ${place.price} · ${place.duration}</p>
         <a href="detalhes.html?id=${place.id}" class="mt-auto pt-2 text-bora underline">Ver detalhes</a>
         <button type="button" data-favorite="${place.id}" class="mt-4 rounded-lg border border-bora px-3 py-2 font-bold">Favoritar</button>
       </div>
     </article>
   `;
+}
+
+function updateHomeDistances() {
+  const list = document.getElementById('places-list');
+  const cards = Array.from(list.querySelectorAll('article'));
+
+  for (const card of cards) {
+    const place = places.find(place => place.id === card.dataset.placeId);
+    card.dataset.distance = distanceTo(place);
+  }
+
+  cards.sort((first, second) => Number(first.dataset.distance) - Number(second.dataset.distance));
+  for (const card of cards) {
+    list.appendChild(card);
+  }
+
+  updateDistanceLabels();
+  filterPlaces();
 }
 
 function filterPlaces() {
@@ -101,7 +119,9 @@ function filterPlaces() {
   let count = 0;
 
   for (const card of cards) {
-    const matches = (category === 'all' || card.dataset.category === category) &&
+    const matchesCategory = category === 'all' || card.dataset.category === category ||
+      (category === 'preferred' && preferredCategories.includes(card.dataset.category));
+    const matches = matchesCategory &&
       Number(card.dataset.distance) <= distance && Number(card.dataset.price) <= price;
 
     card.hidden = !matches;
@@ -155,14 +175,77 @@ document.addEventListener('click', event => {
 });
 
 const filters = document.getElementById('filters');
+let preferredCategories = [];
 
 if (filters) {
+  const preferences = getPreferences();
+  preferredCategories = preferences.categories;
+  document.getElementById('distance').value = preferences.distance;
+
+  if (preferredCategories.length === 1) {
+    document.getElementById('category').value = preferredCategories[0];
+  }
+  else if (preferredCategories.length > 1) {
+    document.querySelector('option[value="preferred"]').hidden = false;
+    document.getElementById('category').value = 'preferred';
+  }
+
   filters.addEventListener('submit', event => {
     event.preventDefault();
     filterPlaces();
   });
 
-  filterPlaces();
+  updateHomeDistances();
+
+  const locationStatus = document.getElementById('location-status');
+  const locationButton = document.getElementById('use-location');
+  locationButton.hidden = currentLocation !== DEFAULT_LOCATION;
+  let locationRequested = false;
+
+  try {
+    locationRequested = sessionStorage.getItem('bora-localizacao-solicitada') === 'true';
+  }
+  catch {
+    // sem armazenamento, o navegador continua controlando a permissão
+  }
+
+  function requestHomeLocation() {
+    if (!navigator.geolocation) {
+      locationStatus.textContent = 'Este navegador não oferece geolocalização.';
+      return;
+    }
+
+    try {
+      sessionStorage.setItem('bora-localizacao-solicitada', 'true');
+    }
+    catch {
+      // a solicitação funciona mesmo se o armazenamento estiver bloqueado
+    }
+
+    locationButton.disabled = true;
+    locationStatus.textContent = 'Buscando sua localização...';
+    navigator.geolocation.getCurrentPosition(position => {
+      setCurrentLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+      updateHomeDistances();
+      locationStatus.textContent = '';
+      locationButton.hidden = true;
+      locationButton.disabled = false;
+    }, error => {
+      locationButton.disabled = false;
+      locationStatus.textContent = error.code === 1
+        ? 'Para usar sua localização, permita o acesso nas configurações do navegador.'
+        : 'Não foi possível obter sua localização. Mostrando sugestões em São Carlos.';
+    }, { timeout: 10000 });
+  }
+
+  locationButton.addEventListener('click', requestHomeLocation);
+
+  if (currentLocation === DEFAULT_LOCATION && !locationRequested && navigator.geolocation) {
+    requestHomeLocation();
+  }
 }
 
 if (document.getElementById('place-detail')) {
@@ -182,3 +265,5 @@ window.addEventListener('storage', () => {
 });
 
 updateFavoriteButtons();
+
+updateDistanceLabels();

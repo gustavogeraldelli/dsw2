@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/places.js" defer></script>
+    <script src="js/location.js" defer></script>
+    <script src="js/preferences.js" defer></script>
     <script src="js/app.js" defer></script>
   </head>
   <body class="flex min-h-screen flex-col bg-orange-50 text-gray-800">
@@ -47,6 +49,7 @@
               <label class="text-sm font-bold" for="category">Categoria</label>
               <select id="category">
                 <option value="all">Todas</option>
+                <option value="preferred" hidden>Categorias favoritas</option>
                 <option>Ao ar livre</option>
                 <option>Comer</option>
                 <option>Cultura</option>
@@ -57,6 +60,7 @@
               <select id="distance">
                 <option value="5">Até 5 km</option>
                 <option value="10">Até 10 km</option>
+                <option value="20">Até 20 km</option>
               </select>
             </div>
             <div>
@@ -74,10 +78,12 @@
 
       <section class="bg-orange-50 py-10">
         <div class="mx-auto max-w-6xl px-4">
-          <h2 class="text-2xl font-bold">Sugestões</h2>
-          <p id="result-count" class="mt-2 mb-4 text-sm">3 lugares</p>
+          <h2 id="distance-reference" class="text-2xl font-bold">Sugestões em São Carlos</h2>
+          <button id="use-location" type="button" class="mt-3 rounded-lg bg-bora px-4 py-2 font-bold text-white">Usar minha localização</button>
+          <p id="location-status" class="mt-2 text-sm"></p>
+          <p id="result-count" class="mt-2 mb-4 text-sm">6 lugares</p>
           <div id="places-list" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <article data-category="Ao ar livre" data-distance="1.8" data-price="0"
+            <article data-place-id="parque-kartodromo" data-category="Ao ar livre" data-price="0"
               class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
               <a href="detalhes.html?id=parque-kartodromo">
                 <img src="assets/parque.svg" alt="Ilustração de um parque" class="h-48 w-full object-cover">
@@ -90,12 +96,12 @@
                   4,3/5 · 3 avaliações
                 </p>
                 <p class="my-3 text-gray-600">Espaço para caminhar e passar uma tarde tranquila.</p>
-                <p class="mb-4 text-sm font-bold">1,8 km · Grátis · 1–2 h</p>
+                <p class="mb-4 text-sm font-bold"><span data-distance-for="parque-kartodromo">951 m</span> · Grátis · 1–2 h</p>
                 <a href="detalhes.html?id=parque-kartodromo" class="mt-auto pt-2 text-bora underline">Ver detalhes</a>
                 <button type="button" data-favorite="parque-kartodromo" class="mt-4 rounded-lg border border-bora px-3 py-2 font-bold">Favoritar</button>
               </div>
             </article>
-            <article data-category="Comer" data-distance="0.85" data-price="25"
+            <article data-place-id="cafe-centro" data-category="Comer" data-price="25"
               class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
               <a href="detalhes.html?id=cafe-centro">
                 <img src="assets/cafe.svg" alt="Ilustração de uma cafeteria" class="h-48 w-full object-cover">
@@ -108,12 +114,12 @@
                   4,5/5 · 2 avaliações
                 </p>
                 <p class="my-3 text-gray-600">Café e lanches perto da região central.</p>
-                <p class="mb-4 text-sm font-bold">850 m · Cerca de R$ 25 · 1 h</p>
+                <p class="mb-4 text-sm font-bold"><span data-distance-for="cafe-centro">349 m</span> · Cerca de R$ 25 · 1 h</p>
                 <a href="detalhes.html?id=cafe-centro" class="mt-auto pt-2 text-bora underline">Ver detalhes</a>
                 <button type="button" data-favorite="cafe-centro" class="mt-4 rounded-lg border border-bora px-3 py-2 font-bold">Favoritar</button>
               </div>
             </article>
-            <article data-category="Cultura" data-distance="3.2" data-price="0"
+            <article data-place-id="museu-ciencia" data-category="Cultura" data-price="0"
               class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
               <a href="detalhes.html?id=museu-ciencia">
                 <img src="assets/museu.svg" alt="Ilustração de um museu" class="h-48 w-full object-cover">
@@ -126,9 +132,63 @@
                   4,7/5 · 3 avaliações
                 </p>
                 <p class="my-3 text-gray-600">Exposições e atividades para conhecer.</p>
-                <p class="mb-4 text-sm font-bold">3,2 km · Grátis · 2 h</p>
+                <p class="mb-4 text-sm font-bold"><span data-distance-for="museu-ciencia">1,4 km</span> · Grátis · 2 h</p>
                 <a href="detalhes.html?id=museu-ciencia" class="mt-auto pt-2 text-bora underline">Ver detalhes</a>
                 <button type="button" data-favorite="museu-ciencia" class="mt-4 rounded-lg border border-bora px-3 py-2 font-bold">Favoritar</button>
+              </div>
+            </article>
+            <article data-place-id="padaria-vila" data-category="Comer" data-price="18"
+              class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+              <a href="detalhes.html?id=padaria-vila">
+                <img src="assets/cafe.svg" alt="Ilustração de uma cafeteria" class="h-48 w-full object-cover">
+              </a>
+              <div class="flex flex-1 flex-col p-5">
+                <p class="self-start rounded bg-bora-light px-2 py-1 text-xs font-bold text-bora">Comer</p>
+                <h3 class="my-2 text-xl font-bold">Padaria da Vila</h3>
+                <p class="text-sm">
+                  <span class="text-orange-700">★★★★★</span>
+                  4,5/5 · 2 avaliações
+                </p>
+                <p class="my-3 text-gray-600">Pães e lanches para um café da manhã sem pressa.</p>
+                <p class="mb-4 text-sm font-bold"><span data-distance-for="padaria-vila">4,8 km</span> · Cerca de R$ 18 · 1 h</p>
+                <a href="detalhes.html?id=padaria-vila" class="mt-auto pt-2 text-bora underline">Ver detalhes</a>
+                <button type="button" data-favorite="padaria-vila" class="mt-4 rounded-lg border border-bora px-3 py-2 font-bold">Favoritar</button>
+              </div>
+            </article>
+            <article data-place-id="galeria-bairro" data-category="Cultura" data-price="15"
+              class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+              <a href="detalhes.html?id=galeria-bairro">
+                <img src="assets/museu.svg" alt="Ilustração de um espaço cultural" class="h-48 w-full object-cover">
+              </a>
+              <div class="flex flex-1 flex-col p-5">
+                <p class="self-start rounded bg-bora-light px-2 py-1 text-xs font-bold text-bora">Cultura</p>
+                <h3 class="my-2 text-xl font-bold">Galeria do Bairro</h3>
+                <p class="text-sm">
+                  <span class="text-orange-700">★★★★☆</span>
+                  4,0/5 · 2 avaliações
+                </p>
+                <p class="my-3 text-gray-600">Exposições de arte e trabalhos de artistas locais.</p>
+                <p class="mb-4 text-sm font-bold"><span data-distance-for="galeria-bairro">6,8 km</span> · Cerca de R$ 15 · 1-2 h</p>
+                <a href="detalhes.html?id=galeria-bairro" class="mt-auto pt-2 text-bora underline">Ver detalhes</a>
+                <button type="button" data-favorite="galeria-bairro" class="mt-4 rounded-lg border border-bora px-3 py-2 font-bold">Favoritar</button>
+              </div>
+            </article>
+            <article data-place-id="recanto-verde" data-category="Ao ar livre" data-price="60"
+              class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+              <a href="detalhes.html?id=recanto-verde">
+                <img src="assets/parque.svg" alt="Ilustração de uma área verde" class="h-48 w-full object-cover">
+              </a>
+              <div class="flex flex-1 flex-col p-5">
+                <p class="self-start rounded bg-bora-light px-2 py-1 text-xs font-bold text-bora">Ao ar livre</p>
+                <h3 class="my-2 text-xl font-bold">Recanto Verde</h3>
+                <p class="text-sm">
+                  <span class="text-orange-700">★★★★★</span>
+                  4,5/5 · 2 avaliações
+                </p>
+                <p class="my-3 text-gray-600">Área verde com trilhas leves e espaço para piquenique.</p>
+                <p class="mb-4 text-sm font-bold"><span data-distance-for="recanto-verde">12,0 km</span> · Cerca de R$ 60 · 3-4 h</p>
+                <a href="detalhes.html?id=recanto-verde" class="mt-auto pt-2 text-bora underline">Ver detalhes</a>
+                <button type="button" data-favorite="recanto-verde" class="mt-4 rounded-lg border border-bora px-3 py-2 font-bold">Favoritar</button>
               </div>
             </article>
           </div>

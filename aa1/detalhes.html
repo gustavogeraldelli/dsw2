@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/places.js" defer></script>
+    <script src="js/location.js" defer></script>
     <script src="js/app.js" defer></script>
   </head>
   <body class="flex min-h-screen flex-col bg-orange-50 text-gray-800">
@@ -51,7 +52,7 @@
             </p>
             <p class="my-4">Um espaço aberto para caminhar, descansar e aproveitar o fim da tarde.</p>
             <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
-              <li><strong>Distância:</strong> 1,8 km</li>
+              <li><strong>Distância:</strong> <span data-distance-for="parque-kartodromo">951 m</span></li>
               <li><strong>Preço:</strong> Grátis</li>
               <li><strong>Tempo sugerido:</strong> 1–2 h</li>
             </ul>
@@ -99,7 +100,7 @@
             </p>
             <p class="my-4">Uma opção para tomar café e fazer uma pausa durante um passeio pelo centro.</p>
             <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
-              <li><strong>Distância:</strong> 850 m</li>
+              <li><strong>Distância:</strong> <span data-distance-for="cafe-centro">349 m</span></li>
               <li><strong>Preço:</strong> Cerca de R$ 25</li>
               <li><strong>Tempo sugerido:</strong> 1 h</li>
             </ul>
@@ -139,7 +140,7 @@
             </p>
             <p class="my-4">Uma visita para conhecer exposições e reservar um tempo para explorar temas de ciência.</p>
             <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
-              <li><strong>Distância:</strong> 3,2 km</li>
+              <li><strong>Distância:</strong> <span data-distance-for="museu-ciencia">1,4 km</span></li>
               <li><strong>Preço:</strong> Grátis</li>
               <li><strong>Tempo sugerido:</strong> 2 h</li>
             </ul>
@@ -167,6 +168,126 @@
               <h3 class="font-bold">Nina L.</h3>
               <p class="my-2"><span class="text-orange-700">★★★★★</span> 5/5</p>
               <p>Gostei da variedade de assuntos apresentados.</p>
+            </article>
+          </div>
+        </section>
+      </article>
+
+      <article data-place="padaria-vila" hidden>
+        <section class="grid gap-6 md:grid-cols-2">
+          <img class="w-full self-start rounded-lg" src="assets/cafe.svg" alt="Ilustração de uma cafeteria">
+          <div class="rounded-lg border border-gray-200 bg-white p-4 sm:p-6">
+            <p class="text-bora">Comer</p>
+            <h1 class="my-2 text-2xl font-bold sm:text-3xl">Padaria da Vila</h1>
+            <p class="text-sm">
+              <span class="text-orange-700">★★★★★</span>
+              4,5/5 · 2 avaliações
+            </p>
+            <p class="my-4">Um lugar para tomar café, escolher um pão fresco e fazer uma pausa durante o dia.</p>
+            <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
+              <li><strong>Distância:</strong> <span data-distance-for="padaria-vila">4,8 km</span></li>
+              <li><strong>Preço:</strong> Cerca de R$ 18</li>
+              <li><strong>Tempo sugerido:</strong> 1 h</li>
+            </ul>
+            <button type="button" data-favorite="padaria-vila" class="rounded-lg border border-bora px-4 py-2 font-bold">Favoritar</button>
+            <h2 class="mt-6 text-xl font-bold">Informações</h2>
+            <p class="mt-2"><strong>Endereço:</strong> Região sul - São Carlos, SP</p>
+            <p class="mt-2"><strong>Horário:</strong> De segunda a sábado, das 7h às 18h.</p>
+          </div>
+        </section>
+
+        <section class="mt-8 rounded-lg bg-bora-light p-4 sm:p-6">
+          <h2 class="text-2xl font-bold">Avaliações</h2>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Ana B.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★★</span> 5/5</p>
+              <p>Gostei dos pães e do café. Uma boa parada para começar o dia.</p>
+            </article>
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Lucas F.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★☆</span> 4/5</p>
+              <p>Atendimento tranquilo e lanches variados. Estava cheia pela manhã.</p>
+            </article>
+          </div>
+        </section>
+      </article>
+
+      <article data-place="galeria-bairro" hidden>
+        <section class="grid gap-6 md:grid-cols-2">
+          <img class="w-full self-start rounded-lg" src="assets/museu.svg" alt="Ilustração de um espaço cultural">
+          <div class="rounded-lg border border-gray-200 bg-white p-4 sm:p-6">
+            <p class="text-bora">Cultura</p>
+            <h1 class="my-2 text-2xl font-bold sm:text-3xl">Galeria do Bairro</h1>
+            <p class="text-sm">
+              <span class="text-orange-700">★★★★☆</span>
+              4,0/5 · 2 avaliações
+            </p>
+            <p class="my-4">Uma galeria para conhecer pinturas, fotografias e pequenas exposições em uma visita tranquila.</p>
+            <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
+              <li><strong>Distância:</strong> <span data-distance-for="galeria-bairro">6,8 km</span></li>
+              <li><strong>Preço:</strong> Cerca de R$ 15</li>
+              <li><strong>Tempo sugerido:</strong> 1-2 h</li>
+            </ul>
+            <button type="button" data-favorite="galeria-bairro" class="rounded-lg border border-bora px-4 py-2 font-bold">Favoritar</button>
+            <h2 class="mt-6 text-xl font-bold">Informações</h2>
+            <p class="mt-2"><strong>Endereço:</strong> Região norte - São Carlos, SP</p>
+            <p class="mt-2"><strong>Horário:</strong> De terça a domingo, das 10h às 17h.</p>
+          </div>
+        </section>
+
+        <section class="mt-8 rounded-lg bg-bora-light p-4 sm:p-6">
+          <h2 class="text-2xl font-bold">Avaliações</h2>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Beatriz C.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★☆</span> 4/5</p>
+              <p>Gostei das fotografias e da organização das salas.</p>
+            </article>
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Diego R.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★☆</span> 4/5</p>
+              <p>É um espaço pequeno, mas dá para apreciar os trabalhos com calma.</p>
+            </article>
+          </div>
+        </section>
+      </article>
+
+      <article data-place="recanto-verde" hidden>
+        <section class="grid gap-6 md:grid-cols-2">
+          <img class="w-full self-start rounded-lg" src="assets/parque.svg" alt="Ilustração de uma área verde">
+          <div class="rounded-lg border border-gray-200 bg-white p-4 sm:p-6">
+            <p class="text-bora">Ao ar livre</p>
+            <h1 class="my-2 text-2xl font-bold sm:text-3xl">Recanto Verde</h1>
+            <p class="text-sm">
+              <span class="text-orange-700">★★★★★</span>
+              4,5/5 · 2 avaliações
+            </p>
+            <p class="my-4">Um passeio para caminhar entre as árvores e passar algumas horas ao ar livre com amigos ou família.</p>
+            <ul class="my-4 space-y-2 rounded-lg bg-stone-50 p-4">
+              <li><strong>Distância:</strong> <span data-distance-for="recanto-verde">12,0 km</span></li>
+              <li><strong>Preço:</strong> Cerca de R$ 60</li>
+              <li><strong>Tempo sugerido:</strong> 3-4 h</li>
+            </ul>
+            <button type="button" data-favorite="recanto-verde" class="rounded-lg border border-bora px-4 py-2 font-bold">Favoritar</button>
+            <h2 class="mt-6 text-xl font-bold">Informações</h2>
+            <p class="mt-2"><strong>Endereço:</strong> Zona rural - São Carlos, SP</p>
+            <p class="mt-2"><strong>Horário:</strong> Sábados e domingos, das 8h às 17h.</p>
+          </div>
+        </section>
+
+        <section class="mt-8 rounded-lg bg-bora-light p-4 sm:p-6">
+          <h2 class="text-2xl font-bold">Avaliações</h2>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">Clara M.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★★</span> 5/5</p>
+              <p>As trilhas são agradáveis e encontramos um bom espaço para o piquenique.</p>
+            </article>
+            <article class="rounded-lg border border-gray-200 bg-white p-5">
+              <h3 class="font-bold">André V.</h3>
+              <p class="my-2"><span class="text-orange-700">★★★★☆</span> 4/5</p>
+              <p>Vale reservar a manhã para caminhar. Levei água e um lanche.</p>
             </article>
           </div>
         </section>

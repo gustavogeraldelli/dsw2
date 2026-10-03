@@ -9,6 +9,8 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/places.js" defer></script>
+    <script src="js/location.js" defer></script>
     <script src="js/map.js" defer></script>
   </head>
   <body class="flex min-h-screen flex-col bg-orange-50 text-gray-800">
@@ -41,8 +43,9 @@
     <main class="mx-auto w-full max-w-6xl flex-1 p-4">
       <section class="my-6 rounded-lg bg-bora-light p-4 sm:p-6">
         <h1 class="text-2xl font-bold text-bora sm:text-3xl">Mapa</h1>
-        <p class="mt-3">Explore o mapa e conheça outras regiões do mundo.</p>
+        <p class="mt-3">Encontre os lugares no mapa e veja os detalhes de cada um.</p>
       </section>
+      <button id="find-location" type="button" class="mb-4 rounded-lg bg-bora px-4 py-2 font-bold text-white">Minha localização</button>
       <div id="map" class="rounded-lg border border-gray-200"></div>
       <p id="map-status" class="mt-2 text-sm"></p>
     </main>

@@ -72,6 +72,10 @@ select:disabled {
   min-height: 300px;
 }
 
+.leaflet-popup-content .map-card p {
+  margin: 0;
+}
+
 .text-bora {
   color: #326080;
 }
