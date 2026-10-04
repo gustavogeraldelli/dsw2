@@ -96,6 +96,60 @@ select:disabled {
   background: #25485f;
 }
 
+body.dark-mode {
+  color-scheme: dark;
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.dark-mode .bg-orange-50 {
+  background: #111827;
+}
+
+.dark-mode .bg-white,
+.dark-mode select,
+.dark-mode .leaflet-popup-content-wrapper,
+.dark-mode .leaflet-popup-tip,
+.dark-mode .leaflet-bar a,
+.dark-mode .leaflet-control-attribution {
+  background: #1f2937;
+  color: #e5e7eb;
+}
+
+.dark-mode .bg-bora-light,
+.dark-mode .bg-stone-50,
+.dark-mode .responsive-navbar a:hover,
+.dark-mode .leaflet-bar a:hover {
+  background: #2c4054;
+}
+
+.dark-mode .text-gray-800 {
+  color: #e5e7eb;
+}
+
+.dark-mode .text-gray-600,
+.dark-mode .leaflet-popup-close-button {
+  color: #cbd5e1;
+}
+
+.dark-mode .text-bora,
+.dark-mode .leaflet-container a {
+  color: #a6cfee;
+}
+
+.dark-mode .text-orange-700 {
+  color: #fdba74;
+}
+
+.dark-mode .border-gray-200,
+.dark-mode select {
+  border-color: #4b5563;
+}
+
+.dark-mode .border-bora {
+  border-color: #a6cfee;
+}
+
 @media screen and (min-width: 48rem) {
   .responsive-navbar ul {
     display: flex;

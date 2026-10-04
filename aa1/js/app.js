@@ -149,8 +149,8 @@ function showDetails() {
 
   document.getElementById('place-not-found').hidden = selected !== null;
   document.title = selected
-    ? `${selected.querySelector('h1').textContent} — Bora`
-    : 'Lugar não encontrado — Bora';
+    ? `${selected.querySelector('h1').textContent} - Bora`
+    : 'Lugar não encontrado - Bora';
 }
 
 function renderFavorites() {
