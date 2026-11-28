@@ -1,5 +1,3 @@
-import { places } from './data/places';
-
 export const FAVORITES_KEY = 'bora-favoritos-v1';
 export const PREFERENCES_KEY = 'bora-preferencias-v1';
 export const THEME_KEY = 'bora-tema';
@@ -11,7 +9,7 @@ export function getFavorites() {
 
     if (Array.isArray(saved)) {
       for (const id of saved) {
-        if (places.some(place => place.id === id) && !favorites.includes(id)) {
+        if (typeof id === 'string' && id.trim() !== '' && !favorites.includes(id)) {
           favorites.push(id);
         }
       }

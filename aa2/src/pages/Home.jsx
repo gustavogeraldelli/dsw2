@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { places } from '../data/places';
 import { DEFAULT_LOCATION, distanceTo, locationWasRequested } from '../location';
 import { getPreferences } from '../storage';
 import PlaceCard from '../components/PlaceCard';
 
-export default function Home({ coordinates, onLocation, favorites, onFavorite }) {
+export default function Home({ places, coordinates, onLocation, favorites, onFavorite }) {
   const [preferences] = useState(getPreferences);
   const [filters, setFilters] = useState(() => {
     let category = 'all';

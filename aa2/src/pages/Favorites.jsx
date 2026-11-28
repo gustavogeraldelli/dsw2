@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-import { places } from '../data/places';
 import PlaceCard from '../components/PlaceCard';
 
-export default function Favorites({ coordinates, favorites, onFavorite }) {
-  const selected = favorites.map(id => places.find(place => place.id === id));
+export default function Favorites({ places, coordinates, favorites, onFavorite }) {
+  const selected = favorites.map(id => places.find(place => place.id === id)).filter(Boolean);
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 p-4">
@@ -21,8 +20,12 @@ export default function Favorites({ coordinates, favorites, onFavorite }) {
       </div>
       {selected.length === 0 && (
         <section id="empty-favorites" className="rounded-lg border border-gray-200 bg-white p-4">
-          <h2 className="text-xl font-bold">Nenhum lugar salvo ainda</h2>
-          <p className="my-2">Encontrou um lugar interessante? Toque em Favoritar para guardar aqui.</p>
+          <h2 className="text-xl font-bold">{favorites.length > 0 ? 'Lugares salvos indisponíveis' : 'Nenhum lugar salvo ainda'}</h2>
+          <p className="my-2">
+            {favorites.length > 0
+              ? 'Os lugares salvos não estão no catálogo. Seus favoritos foram mantidos.'
+              : 'Encontrou um lugar interessante? Toque em Favoritar para guardar aqui.'}
+          </p>
           <Link to="/" className="text-bora underline">Ver lugares</Link>
         </section>
       )}

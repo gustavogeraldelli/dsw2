@@ -8,25 +8,36 @@ O Bora é uma aplicação para ajudar a encontrar lugares e atividades de acordo
 
 ## Páginas
 
-- `/` - página principal com sugestões de lugares, filtros de categoria, distância e preço e opção de favoritar.
+- `/` - sugestões de lugares, filtros de categoria, distância e preço e opção de favoritar.
 - `/detalhes/:id` - informações, notas e comentários do lugar selecionado.
 - `/favoritos` - lugares salvos no `localStorage`, com opção de remover favoritos.
 - `/mapa` - mapa com marcadores dos lugares, links para detalhes e localização do usuário mediante permissão.
-- `/preferencias` - categorias favoritas e distância máxima salvas no `localStorage` e aplicadas ao abrir a página principal, além da opção de modo escuro.
+- `/preferencias` - categorias favoritas, distância máxima e modo escuro.
 
-O projeto utiliza React, Vite, React Router, Tailwind CSS e Leaflet com OpenStreetMap. As páginas compartilham componentes e possuem layout responsivo para celular, tablet e desktop. Em telas pequenas, os links de navegação ficam em um menu controlado por checkbox e CSS. O modo escuro e os favoritos permanecem salvos após recarregar a página.
+O frontend utiliza React, Vite, React Router, Tailwind CSS compilado localmente e Leaflet com OpenStreetMap. O backend utiliza Node.js e Express para ler `backend/dados.json` e responder a `GET /api/lugares` e `GET /api/lugares/:id`. A média e a quantidade de avaliações são calculadas pelo servidor. As consultas mostram carregamento, erro com opção de tentar novamente e ausência de resultados.
 
-O Tailwind CSS é compilado localmente pelo Vite usando os pacotes instalados pelo npm. O build gera os arquivos CSS em `dist`, sem carregar o Tailwind por CDN.
-
-A página principal solicita a localização ao abrir. A localização autorizada fica na sessão do navegador e permite calcular as distâncias em linha reta, ordenar as sugestões e aplicar os filtros. Sem ela, São Carlos é o ponto de referência.
+As páginas possuem layout responsivo. Favoritos, preferências e tema ficam no `localStorage`; a localização autorizada fica na sessão do navegador. Sem localização, São Carlos é o ponto de referência para as distâncias em linha reta. O Vite encaminha os pedidos iniciados por `/api` ao backend local.
 
 ## Como executar
 
-Na pasta do projeto, execute:
+Na pasta do projeto, instale as dependências:
 
 ```bash
 npm install
+```
+
+Inicie o backend em um terminal:
+
+```bash
+npm run backend
+```
+
+Em outro terminal, na mesma pasta, inicie o frontend:
+
+```bash
 npm run dev
 ```
 
-Abra no navegador o endereço mostrado no terminal.
+Abra o endereço mostrado pelo Vite. O backend utiliza `http://127.0.0.1:3001` e precisa permanecer em execução.
+
+Para verificar o build, execute `npm run build`. Para visualizar o build localmente, mantenha o backend ligado e execute `npm run preview`.

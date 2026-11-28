@@ -4,7 +4,6 @@ import L from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIconRetina from 'leaflet/dist/images/marker-icon-2x.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-import { places } from '../data/places';
 import { DEFAULT_LOCATION } from '../location';
 import MapCard from '../components/MapCard';
 
@@ -18,7 +17,7 @@ const placeIcon = L.icon({
   shadowSize: [41, 41]
 });
 
-export default function Map({ coordinates, onLocation }) {
+export default function Map({ places, coordinates, onLocation }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
   const userMarkerRef = useRef(null);
@@ -30,6 +29,7 @@ export default function Map({ coordinates, onLocation }) {
     const map = L.map(containerRef.current, {
       minZoom: 2,
       maxZoom: 19,
+      zoomAnimation: false,
       worldCopyJump: true
     }).setView([-22.015, -47.89], 13);
     mapRef.current = map;
@@ -52,14 +52,16 @@ export default function Map({ coordinates, onLocation }) {
       popupContainers.push({ place, container });
     }
     setPopups(popupContainers);
-    map.fitBounds(positions, { padding: [30, 30], maxZoom: 14 });
+    if (positions.length > 0) {
+      map.fitBounds(positions, { padding: [30, 30], maxZoom: 14 });
+    }
 
     return () => {
       map.remove();
       mapRef.current = null;
       userMarkerRef.current = null;
     };
-  }, []);
+  }, [places]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -81,7 +83,7 @@ export default function Map({ coordinates, onLocation }) {
 
     map.setView(position, 15);
     userMarkerRef.current.openPopup();
-  }, [coordinates]);
+  }, [coordinates, places]);
 
   function requestLocation() {
     if (!navigator.geolocation) {
@@ -112,6 +114,7 @@ export default function Map({ coordinates, onLocation }) {
       <button id="find-location" type="button" onClick={requestLocation} disabled={locating} className="mb-4 rounded-lg bg-bora px-4 py-2 font-bold text-white">
         Minha localização
       </button>
+      {places.length === 0 && <p className="mb-4">Nenhum lugar disponível no catálogo.</p>}
       <div id="map" ref={containerRef} className="rounded-lg border border-gray-200"></div>
       <p id="map-status" className="mt-2 text-sm">{status}</p>
       {/* O React renderiza cada card dentro do recipiente de popup criado pelo Leaflet. */}

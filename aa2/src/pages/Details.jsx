@@ -1,17 +1,76 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { places } from '../data/places';
 import { distanceTo, formatDistance } from '../location';
 import Rating, { stars } from '../components/Rating';
 import FavoriteButton from '../components/FavoriteButton';
+import RequestStatus from '../components/RequestStatus';
 
 export default function Details({ coordinates, favorites, onFavorite }) {
   const { id } = useParams();
-  const place = places.find(place => place.id === id);
+  const [result, setResult] = useState({ id: null, place: null });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [attempt, setAttempt] = useState(0);
+  const place = result.id === id ? result.place : null;
 
   useEffect(() => {
-    document.title = place ? `${place.name} - Bora` : 'Lugar não encontrado - Bora';
-  }, [place]);
+    const controller = new AbortController();
+
+    async function loadPlace() {
+      setLoading(true);
+      setError('');
+      try {
+        const response = await fetch(`/api/lugares/${encodeURIComponent(id)}`, {
+          signal: controller.signal
+        });
+        if (response.status === 404) {
+          if (!controller.signal.aborted) {
+            setResult({ id, place: null });
+          }
+          return;
+        }
+        if (!response.ok) {
+          throw new Error('Não foi possível buscar esse lugar. Tente novamente.');
+        }
+        const data = await response.json();
+        if (!data || data.id !== id || !Array.isArray(data.reviews)) {
+          throw new Error('O servidor retornou informações inválidas para esse lugar.');
+        }
+        if (!controller.signal.aborted) {
+          setResult({ id, place: data });
+        }
+      }
+      catch {
+        if (!controller.signal.aborted) {
+          setError('Não foi possível buscar esse lugar. Tente novamente.');
+        }
+      }
+      finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadPlace();
+    return () => controller.abort();
+  }, [id, attempt]);
+
+  useEffect(() => {
+    if (!loading && !error && result.id === id) {
+      document.title = place ? `${place.name} - Bora` : 'Lugar não encontrado - Bora';
+    }
+  }, [place, loading, error, result.id, id]);
+
+  function retryPlace() {
+    setLoading(true);
+    setError('');
+    setAttempt(previous => previous + 1);
+  }
+
+  if (loading || error || result.id !== id) {
+    return <RequestStatus loading={loading || (!error && result.id !== id)} error={error} onRetry={retryPlace} />;
+  }
 
   return (
     <main id="place-detail" className="mx-auto w-full max-w-6xl flex-1 p-4">
